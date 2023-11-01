@@ -8,7 +8,16 @@
           <%= horse.name %>
         <% end %>
       </p>
+
       <p>Breed: <%= link_to horse.breed.name, horse.breed %></p>
+    <% if horse.image.present? %>
+      <div class="card-image">
+        <figure class="image">
+          <%= image_tag (horse.image.variant(resize_to_limit: [500,500])) %>
+        </figure>
+      </div>
+    <% end %>
+
     </div>
     <footer class="card-footer">
       <p class="card-footer-item">
