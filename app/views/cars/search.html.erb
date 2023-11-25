@@ -1,10 +1,10 @@
 <p>
-  Found <%= pluralize(@horses.size, 'result') %>
+  Found <%= pluralize(@cars.size, 'result') %>
   for the search term "<%= params[:search_term] %>".
 </p>
 
 <div class="search-results columns is-multiline">
-  <%= render partial: 'horses/horse',
-             collection: @horses,
+  <%= render partial: 'cars/car',
+             collection: @cars,
              locals: { show_link: true } %>
 </div>

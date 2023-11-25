@@ -1,0 +1,18 @@
+<h3 class="title is-4"><%= @manufacturer.name %></h3>
+
+<h4 class="title is-5">Cars of this manufacturer</h4>
+
+<h4 class="title is-5">Social Media:</h4>
+  <ul>
+    <li>Twitter: <%= @social_media.twitter %></li>
+    <li>Facebook: <%= @social_media.facebook %></li>
+    <li>Instagram: <%= @social_media.instagram %></li>
+  <li>Youtube: <%= @social_media.youtube %></li>
+  <li>LinkedIn: <%= @social_media.linkedin %></li>
+  </ul>
+
+<div class="columns is-multiline">
+  <%= render partial: 'cars/car',
+             collection: @manufacturer.cars,
+             locals: { show_link: true } %>
+</div>

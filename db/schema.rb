@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_31_194102) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_25_030646) do
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
     t.text "body"
@@ -65,24 +65,46 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_31_194102) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "breeds", force: :cascade do |t|
+  create_table "cars", force: :cascade do |t|
+    t.float "price"
+    t.string "brand"
+    t.string "model"
+    t.integer "year"
+    t.string "title_status"
+    t.float "mileage"
+    t.string "color"
+    t.string "vin"
+    t.string "lot"
+    t.string "state"
+    t.string "country"
+    t.string "condition"
+    t.integer "manufacturer_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["manufacturer_id"], name: "index_cars_on_manufacturer_id"
+  end
+
+  create_table "manufacturers", force: :cascade do |t|
     t.string "name"
+    t.string "site"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "horses", force: :cascade do |t|
-    t.string "name"
-    t.integer "age"
-    t.decimal "top_speed"
-    t.integer "number_of_legs"
+  create_table "social_media", force: :cascade do |t|
+    t.string "twitter"
+    t.string "facebook"
+    t.string "instagram"
+    t.string "youtube"
+    t.string "linkedin"
+    t.integer "manufacturer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "breed_id", null: false
-    t.index ["breed_id"], name: "index_horses_on_breed_id"
+    t.index ["manufacturer_id"], name: "index_social_media_on_manufacturer_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "horses", "breeds"
+  add_foreign_key "cars", "manufacturers"
+  add_foreign_key "social_media", "manufacturers"
 end
