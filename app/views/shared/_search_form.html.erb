@@ -3,8 +3,20 @@
     <div class="control">
       <%= text_field_tag(:search_term, nil, class: 'input', placeholder: 'Search By model') %>
     </div>
+    <br>
+
+    <!--<div>
+      <select name="model" class="input">
+        <option value="" disabled selected>Select car </option>
+      </select>
+    </div>-->
+
     <div class="control">
       <%= submit_tag("Search", class: "button is-info") %>
     </div>
   </div>
 <% end %>
+<p>
+  Found <%= pluralize(@cars&.size.to_i, 'result') %>
+  for the search term "<%= params[:search_term] %>".
+</p>

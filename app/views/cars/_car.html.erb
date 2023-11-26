@@ -13,7 +13,9 @@
     <% if car.image.present? %>
       <div class="card-image">
         <figure class="image">
-          <%= image_tag (car.image.variant(resize_to_limit: [500,500])) %>
+          <!-- <%= image_tag (car.image.variant(resize_to_limit: [500,500])) %>-->
+          <%= image_tag (car.image), size:"200x200" %>
+          <!-- <% car.image.variant(resize_to_limit:[250,250])%>-->
         </figure>
       </div>
     <% end %>
@@ -46,9 +48,6 @@
       </p>
             <p class="card-footer-item">
         state: <br><%= car.state %>
-      </p>
-      <p class="card-footer-item">
-        country: <br><%= car.country %>
       </p>
       <p class="card-footer-item">
         condition: <br><%= car.condition %>
