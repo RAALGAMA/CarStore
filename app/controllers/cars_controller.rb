@@ -6,10 +6,10 @@ class CarsController < ApplicationController
 
   # GET /cars/search?keywords=user+search+terms
   def search
-    #@car = Car.where('model LIKE ?', "%#{params[:search_term]}%")
     wildcard_search = "%#{params[:search_term]}%"
     model = params[:model]
+
     @cars = Car.where("model LIKE ?", wildcard_search)
-@cars = @cars.where(model: params[:model]) if params[:model].present?
+    @cars = @cars.where(title_status: model) if model.present?
   end
 end

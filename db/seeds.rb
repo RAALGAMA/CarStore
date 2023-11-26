@@ -61,11 +61,11 @@ manufacturers.each do |manufacturer_data|
       condition: car_data["condition"]
     )
 
-    query = URI.encode_www_form_component([car.model + ' car', manufacturer.name + ' car'].join(','))
+    query = URI.encode_www_form_component([car.model + ' car', manufacturer.name + ' car', car.color+ ' car'].join(','))
     download_image = URI.open("https://source.unsplash.com/600x600/?#{query}")
     car.image.attach(io: download_image,
                      filename: "m-#{[car.model + ' car',
-                                     manufacturer.name + ' car'].join('-')}.jpg")
+                                     manufacturer.name + ' car', car.color + ' car'].join('-')}.jpg")
     sleep(1)
 
     created_cars_count += 1
