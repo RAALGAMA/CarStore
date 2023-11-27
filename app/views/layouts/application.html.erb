@@ -19,14 +19,13 @@
 
           <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
 
+          <h3>You have added <%= pluralize cart, 'car' %> to the cart</h3>
+
         </header>
         <%= render partial: 'shared/search_form' %>
         <%= yield %>
       </div>
     </section>
-    <aside>
-    <h3><p>You have visited this page <%= pluralize @visit_count, 'time' %></p></h3>
-    </aside>
 
   </body>
   <footer>

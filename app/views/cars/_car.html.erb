@@ -21,9 +21,9 @@
     </div>
       <footer class="card-footer">
         <p class="card-footer-item">
-          Price: <br>$<%= car.price %>
+          Price: <br>$<%= car.price / 100.0 %>
         </p>
-              <p class="card-footer-item">
+        <p class="card-footer-item">
           brand: <br><%= car.brand %>
         </p>
         <p class="card-footer-item">
@@ -50,6 +50,14 @@
         <p class="card-footer-item">
           condition: <br><%= car.condition %>
         </p>
+      </footer>
+      <footer class="card-footer">
+        <div class="card-footer-item">
+          <%= form_with url: cart_index_path, method: :post do %>
+            <%= hidden_field_tag(:id, car.id) %>
+            <%= button_tag '➕ Add to Cart ➕' %>
+          <% end %>
+        </div>
       </footer>
   </div>
 </div>
