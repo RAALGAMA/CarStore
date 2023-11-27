@@ -18,11 +18,15 @@
           <h1 class="title is-1"><%= link_to 'Cars on Rails', root_path %></h1>
 
           <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
+
         </header>
         <%= render partial: 'shared/search_form' %>
         <%= yield %>
       </div>
     </section>
+    <aside>
+    <h3><p>You have visited this page <%= pluralize @visit_count, 'time' %></p></h3>
+    </aside>
 
   </body>
   <footer>
