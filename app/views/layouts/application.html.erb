@@ -18,9 +18,14 @@
           <h1 class="title is-1"><%= link_to 'Cars on Rails', root_path %></h1>
 
           <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
-
+          <%= debug session[:shopping_cart] %>
+          <%= debug cart %>
           <h3>You have added <%= pluralize cart, 'car' %> to the cart</h3>
-
+            <% if flash[:notice] %>
+              <p>
+                <%= flash[:notice] %>
+              </p>
+            <% end %>
         </header>
         <%= render partial: 'shared/search_form' %>
         <%= yield %>
