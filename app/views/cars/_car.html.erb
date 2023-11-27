@@ -10,48 +10,46 @@
       </p>
 
       <p>manufacturer: <%= link_to car.manufacturer.name, car.manufacturer %></p>
-    <% if car.image.present? %>
-      <div class="card-image">
-        <figure class="image">
-          <!-- <%= image_tag (car.image.variant(resize_to_limit: [500,500])) %>-->
-          <%= image_tag (car.image), size:"200x200" %>
-          <!-- <% car.image.variant(resize_to_limit:[250,250])%>-->
-        </figure>
-      </div>
-    <% end %>
+      <% if car.image.present? %>
+        <div class="card-image">
+          <figure class="image">
+            <%= image_tag (car.image), size:"200x200" %>
+          </figure>
+        </div>
+      <% end %>
 
     </div>
-    <footer class="card-footer">
-      <p class="card-footer-item">
-        Price: <br>$<%= car.price %>
-      </p>
-            <p class="card-footer-item">
-        brand: <br><%= car.brand %>
-      </p>
-      <p class="card-footer-item">
-        Year: <br><%= car.year %>
-      </p>
-      <p class="card-footer-item">
-        Title Status: <br><%= car.title_status %>
-      </p>
-            <p class="card-footer-item">
-        Mileage: <br><%= car.mileage %>
-      </p>
-      <p class="card-footer-item">
-        Color: <br><%= car.color %>
-      </p>
-      <p class="card-footer-item">
-        Vehicle Identification Number: <br><%= car.vin %>
-      </p>
-            <p class="card-footer-item">
-        Lot number associated with the car: <br><%= car.lot %>
-      </p>
-            <p class="card-footer-item">
-        state: <br><%= car.state %>
-      </p>
-      <p class="card-footer-item">
-        condition: <br><%= car.condition %>
-      </p>
-    </footer>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          Price: <br>$<%= car.price %>
+        </p>
+              <p class="card-footer-item">
+          brand: <br><%= car.brand %>
+        </p>
+        <p class="card-footer-item">
+          Year: <br><%= car.year %>
+        </p>
+        <p class="card-footer-item">
+          Title Status: <br><%= car.title_status %>
+        </p>
+              <p class="card-footer-item">
+          Mileage: <br><%= car.mileage %>
+        </p>
+        <p class="card-footer-item">
+          Color: <br><%= car.color %>
+        </p>
+        <p class="card-footer-item">
+          Vehicle Identification Number: <br><%= car.vin %>
+        </p>
+              <p class="card-footer-item">
+          Lot number associated with the car: <br><%= car.lot %>
+        </p>
+              <p class="card-footer-item">
+          state: <br><%= car.state %>
+        </p>
+        <p class="card-footer-item">
+          condition: <br><%= car.condition %>
+        </p>
+      </footer>
   </div>
 </div>

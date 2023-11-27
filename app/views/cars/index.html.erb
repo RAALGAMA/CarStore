@@ -1,0 +1,10 @@
+<h1>All Cars</h1>
+
+<section class="columns is-multiline">
+  <p>You have visited this page <%= pluralize @visit_count, 'time' %></p>
+  <% @cars.each do |car| %>
+    <%= render partial: 'cars/car', locals: { car: car, show_link: true } %>
+  <% end %>
+</section>
+
+<%= paginate @cars %>
