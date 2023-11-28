@@ -44,7 +44,7 @@ manufacturers.each do |manufacturer_data|
     next unless car_data["manufacturer_id"] == manufacturer_data["id"]
     next unless car_data["brand"].downcase == manufacturer_data["name"].downcase
 
-    break if created_cars_count >= 20 # Salir después de crear 20 carros por manufactura
+    break if created_cars_count >= 30 # Salir después de crear 20 carros por manufactura
 
     car = manufacturer.cars.create(
       price: car_data["price"].to_f,
@@ -57,7 +57,6 @@ manufacturers.each do |manufacturer_data|
       vin: car_data["vin"],
       lot: car_data["lot"],
       state: car_data["state"],
-      country: car_data["country"],
       condition: car_data["condition"]
     )
 

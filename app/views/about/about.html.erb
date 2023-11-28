@@ -1,2 +1,99 @@
-<h1>About#about</h1>
-<p>Hello</p>
+<article class="card-footer">
+    <div><strong>
+      <%= @abouts.first.content %> <br>
+      <%= @abouts.second.content %><br>
+      <%= @abouts.third.content %><br>
+      <%= @abouts.fourth.content %>
+    </strong></div>
+</article>
+<article class="card-footer">
+  <div class="card-footer-item">
+    <h2><%= @abouts.fifth.content %></h2>
+  </div>
+  <div class="card-footer-item">
+    <h2><%= @abouts.offset(5).first.content %></h2>
+  </div>
+  <div class="card-footer-item">
+    <h2><%= @abouts.offset(5).second.content %></h2>
+  </div>
+</article>
+
+<div class="card-footer">
+  <h2><%= @abouts.offset(5).third.content %></h2>
+</div>
+<div class="card-footer-item">
+  <p><Strong>Tables:</Strong> </p>
+</div>
+
+<div class="columns">
+  <div class="column">
+    <ol class="ml-5"> <strong>Cars:</strong>
+      <li> id (Primary Key, Auto-increment): Unique identifier for each car entry</li>
+      <li> price (Decimal): The price of the car.</li>
+      <li> brand (VARCHAR): The brand or manufacturer of the car.</li>
+      <li> model (VARCHAR): The model of the car.</li>
+      <li> year (Integer): The manufacturing year of the car.</li>
+      <li> title_status (VARCHAR): The status of the car's title (e.g., clean, salvage).</li>
+      <li> mileage (Decimal): The mileage of the car.</li>
+      <li> color (VARCHAR): The color of the car.</li>
+      <li> vin (VARCHAR): Vehicle Identification Number.</li>
+      <li> lot (Integer): Lot number associated with the car.</li>
+      <li> state (VARCHAR): The state where the car is located.</li>
+      <li> condition (VARCHAR): The condition of the car (e.g., new, used).</li>
+      <li> manufacturer_id (Foreign Key): References Manufacturers.id.</li>
+    </ol>
+  </div>
+
+  <div class="column">
+    <ol class="ml-5"><strong>Manufacturers:</strong>
+      <li> id (Primary Key, Auto-increment): Unique identifier for each car entry.</li>
+      <li> name (VARCHAR): The name of the manufacturer.</li>
+      <li> site (VARCHAR): Official website of the manufacturer.</li>
+    </ol>
+  </div>
+
+  <div class="column">
+    <ol class="ml-5"> <strong>Social Media:</strong>
+      <li> id (Primary Key, Auto-increment): Unique identifier for each social media entry. </li>
+      <li> manufacturer_id (Foreign Key): References Manufacturers.id. </li>
+      <li> twitter (VARCHAR): Twitter profile of the manufacturer. </li>
+      <li> facebook (VARCHAR): Facebook profile of the manufacturer. </li>
+      <li> instagram (VARCHAR): Instagram profile of the manufacturer. </li>
+      <li> youtube (VARCHAR): YouTube profile of the manufacturer. </li>
+      <li> linkedin (VARCHAR): LinkedIn profile of the manufacturer. </li>
+    </ol>
+  </div>
+
+  <div class="column">
+    <ol class="ml-5"> <strong>Payment:</strong>
+      <li> payment_id: Unique identifier for each payment. </li>
+      <li> order_id: Foreign key referencing the Order table to associate the payment with a specific order. </li>
+      <li> payment_date: Timestamp indicating when the payment was made. </li>
+      <li> amount: The amount paid for the order. </li>
+      <li> payment_method: The method used for the payment (credit card, PayPal, etc.). </li>
+      <li> order_id: An identifier for the payment transaction. Referse to Order.order_id </li>
+    </ol>
+  </div>
+
+  <div class="column">
+    <ol class="ml-5"> <Strong>Order:</Strong>
+      <li> order_id: Unique identifier for each order.  </li>
+      <li> customer_id: Foreign key referencing the Users table, representing the customer who placed the order.  </li>
+      <li> car_id: Foreign key referencing the Cars table, representing the car included in the order.  </li>
+      <li> order_date: Timestamp indicating when the order was placed.  </li>
+      <li> total_amount: Total amount of the order. </li>
+      <li> status: Status of the order (e.g., pending, shipped). </li>
+    </ol>
+  </div>
+
+  <div class="column">
+     <ol class="ml-5"> <Strong>admin_users:</Strong>
+      <li> user_id: Unique identifier for each user.</li>
+      <li> first_name: First name of the user.</li>
+      <li> email: Email address of the user (should be unique).</li>
+      <li> encrypted_password: Hashed or encrypted password of the user.</li>
+      <li>address: Address of the user.</li>
+    </ol>
+  </div>
+</div>
+</article>

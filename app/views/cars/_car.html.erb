@@ -57,6 +57,11 @@
             <%= hidden_field_tag(:id, car.id) %>
             <%= button_tag '➕ Add to Cart ➕' %>
           <% end %>
+          <% if cart.include?(car) %>
+            <%= button_to cart_path(car), method: :delete, class: 'remove-from-cart' do %>
+             ➖ Remove From Cart ➖
+            <% end %>
+          <% end %>
         </div>
       </footer>
   </div>

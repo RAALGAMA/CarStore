@@ -18,14 +18,33 @@
           <h1 class="title is-1"><%= link_to 'Cars on Rails', root_path %></h1>
 
           <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
-          <%= debug session[:shopping_cart] %>
+          <!---<%= debug session[:shopping_cart] %>
           <%= debug cart %>
           <h3>You have added <%= pluralize cart, 'car' %> to the cart</h3>
             <% if flash[:notice] %>
               <p>
                 <%= flash[:notice] %>
               </p>
-            <% end %>
+            <% end %>--->
+            <details>
+              <summary>
+                <% if cart.present? %>
+                Cart:
+                <sup>
+                    <%= cart.size %>
+                  </sup>
+                <ul class="card">
+                <% end %>
+              </summary>
+              <% cart.each do |c| %>
+                <li class="card-content">
+                  <%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
+                </li>
+                <% end %>
+                </ul>
+            </details>
+            <br>
+          <h3><%= flash[:notice] %></h3>
         </header>
         <%= render partial: 'shared/search_form' %>
         <%= yield %>
@@ -35,6 +54,25 @@
   </body>
   <footer>
       <div class="container">
+        <h2>
+          <details>
+            <summary>
+              Cart
+              <% if cart.present? %>
+              <sup>
+                  <%= cart.size %>
+                </sup>
+              <ul class="card">
+              <% end %>
+            </summary>
+            <% cart.each do |c| %>
+              <li class="card-content">
+                <%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
+              </li>
+              <% end %>
+              </ul>
+          </details>
+        </h2>
         <h2> <%= link_to 'About Us', about_about_path %> </h2>
         <h2> <%= link_to 'Cars', cars_path %> </h2>
         <h2> <%= link_to 'Manufacturers', manufacturers_path %> </h2>

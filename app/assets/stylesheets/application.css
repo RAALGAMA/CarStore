@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+nav ul li ul li a{
+  display: inline
+}
+.font-color{
+  color: black;
+}
