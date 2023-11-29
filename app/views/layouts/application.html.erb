@@ -9,6 +9,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script src="https://js.stripe.com/v3"></script>
   </head>
 
    <body>
@@ -26,22 +27,22 @@
                 <%= flash[:notice] %>
               </p>
             <% end %>--->
-            <details>
+             <details>
               <summary>
                 <% if cart.present? %>
-                Cart:
-                <sup>
+                  Cart:
+                  <sup>
                     <%= cart.size %>
                   </sup>
-                <ul class="card">
+                  <ul class="card">
                 <% end %>
               </summary>
-              <% cart.each do |c| %>
-                <li class="card-content">
-                  <%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
-                </li>
+                  <% cart.each do |c| %>
+                    <li class="card-content">
+                      <%= c.brand %>-<%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
+                    </li>
                 <% end %>
-                </ul>
+                  </ul>
             </details>
             <br>
           <h3><%= flash[:notice] %></h3>
@@ -67,7 +68,7 @@
             </summary>
             <% cart.each do |c| %>
               <li class="card-content">
-                <%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
+                <%= c.brand %>-<%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
               </li>
               <% end %>
               </ul>
