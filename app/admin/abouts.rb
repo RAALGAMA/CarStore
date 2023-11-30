@@ -1,12 +1,18 @@
 ActiveAdmin.register About do
 
-  permit_params :content
-
-  form do |f|
-    f.inputs "About Details" do
-      f.input :content, as: :ckeditor
-    end
-    f.actions
-  end
+  # See permitted parameters documentation:
+  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
+  #
+  # Uncomment all parameters which should be permitted for assignment
+  #
+   permit_params :content
+  #
+  # or
+  #
+  # permit_params do
+  #   permitted = [:name, :site]
+  #   permitted << :other if params[:action] == 'create' && current_user.admin?
+  #   permitted
+  # end
 
 end
