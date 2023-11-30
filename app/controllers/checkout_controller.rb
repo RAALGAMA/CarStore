@@ -57,10 +57,7 @@ class CheckoutController < ApplicationController
   end
 
   def success
-    # Recuperar la sesión de Stripe
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
-
-    # Verificar si hay un PaymentIntent asociado a la sesión
     if @session.payment_intent.present?
       # Recuperar el PaymentIntent asociado a la sesión
       @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
@@ -70,11 +67,11 @@ class CheckoutController < ApplicationController
         address_info = @session.customer_details[:address]
 
         # Crear o actualizar el usuario en tu base de datos con la información de dirección
-        current_user.update(
-          country: address_info[:country],
-          state: address_info[:state],
+        #current_user.update(
+        #  country: address_info[:country],
+        #  state: address_info[:state],
           # Otros campos de dirección...
-        )
+        #)
       end
 
       # Extraer la información de los productos comprados
