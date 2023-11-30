@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_191058) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_30_225140) do
   create_table "abouts", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -106,6 +106,22 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_191058) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manufacturer_id"], name: "index_social_media_on_manufacturer_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "encrypted_password"
+    t.string "address"
+    t.string "province"
+    t.string "state"
+    t.string "country"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
