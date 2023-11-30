@@ -10,6 +10,26 @@
       </p>
 
       <p>manufacturer: <%= link_to car.manufacturer.name, car.manufacturer %></p>
+
+      <footer class="card-footer">
+        <div class="card-footer-item">
+          <% if cart.include?(car) %>
+            <%= button_to cart_path(car), method: :delete, class: 'remove-from-cart' do %>
+            ➖ Remove From Cart ➖
+            <% end %>
+            <%= form_with url: checkout_create_path, remote: true do %>
+              <%= hidden_field_tag(:car_id, car.id) %>
+              <%= button_tag '💳 Buy Now' %>
+            <% end %>
+          <% else %>
+            <%= form_with url: cart_index_path, method: :post do %>
+              <%= hidden_field_tag(:id, car.id) %>
+              <%= button_tag '➕ Add to Cart ➕' %>
+            <% end %>
+          <% end %>
+        </div>
+      </footer>
+
       <% if car.image.present? %>
         <div class="card-image">
           <figure class="image">
@@ -50,24 +70,6 @@
         <p class="card-footer-item">
           condition: <br><%= car.condition %>
         </p>
-      </footer>
-      <footer class="card-footer">
-        <div class="card-footer-item">
-          <% if cart.include?(car) %>
-            <%= button_to cart_path(car), method: :delete, class: 'remove-from-cart' do %>
-            ➖ Remove From Cart ➖
-            <% end %>
-            <%= form_with url: checkout_create_path, remote: true do %>
-              <%= hidden_field_tag(:car_id, car.id) %>
-              <%= button_tag '💳 Buy Now' %>
-            <% end %>
-          <% else %>
-            <%= form_with url: cart_index_path, method: :post do %>
-              <%= hidden_field_tag(:id, car.id) %>
-              <%= button_tag '➕ Add to Cart ➕' %>
-            <% end %>
-          <% end %>
-        </div>
       </footer>
   </div>
 </div>

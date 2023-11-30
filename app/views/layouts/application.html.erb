@@ -6,7 +6,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%# stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script src="https://js.stripe.com/v3"></script>
@@ -40,8 +40,10 @@
                   <% cart.each do |c| %>
                     <li class="card-content">
                       <%= c.brand %>-<%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
+                      <input type="number" value="1" min="1" onchange="actualizarSubtotal(this)">
                     </li>
                 <% end %>
+                    <%= button_to '💳 Buy Now' %>
                   </ul>
             </details>
             <br>
