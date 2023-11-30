@@ -38,9 +38,9 @@
             <% end %>
           </div>
 
-          <%= render partial: 'shared/cart_details' %>
-          <br>
-
+             <details>
+              <%= render partial: 'shared/cart_details' %>
+            <br>
           <h3><%= flash[:notice] %></h3>
         </header>
         <%= render partial: 'shared/search_form' %>
@@ -52,9 +52,23 @@
   <footer>
       <div class="container">
         <h2>
-
-          <%= render partial: 'shared/cart_details' %>
-
+          <details>
+            <summary>
+              Cart
+              <% if cart.present? %>
+              <sup>
+                  <%= cart.size %>
+                </sup>
+              <ul class="card">
+              <% end %>
+            </summary>
+            <% cart.each do |c| %>
+              <li class="card-content">
+                <%= c.brand %>-<%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
+              </li>
+              <% end %>
+              </ul>
+          </details>
         </h2>
         <h2> <%= link_to 'About Us', about_about_path %> </h2>
         <h2> <%= link_to 'Cars', cars_path %> </h2>
