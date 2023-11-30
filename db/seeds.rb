@@ -1,6 +1,7 @@
 require "csv"
 
 AdminUser.delete_all
+User.destroy_all
 Car.delete_all
 SocialMedia.delete_all
 Manufacturer.delete_all
@@ -71,9 +72,24 @@ manufacturers.each do |manufacturer_data|
   end
 end
 
+user = User.create!(
+  first_name: 'Nombre',
+  last_name: 'Apellido',
+  email: 'usuario@example.com',
+  address: '100 123 direccion',
+  province: 'Manitoba',
+  state: 'Manitoba',
+  country: 'Canada',
+  encrypted_password:'password',
+  reset_password_token: nil,
+  reset_password_sent_at: nil,
+  remember_created_at: nil
+)
+
 puts "Created #{Manufacturer.count} Manufacturers."
 puts "Created #{Car.count} Cars."
 puts "Created #{SocialMedia.count} SocialMedia instances."
+puts 'Usuario creado exitosamente.'
 if Rails.env.development?
   AdminUser.create!(email: 'admin@example.com', password: 'password',
                     password_confirmation: 'password')
