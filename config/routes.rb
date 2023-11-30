@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root to: 'cars#index'
   get 'about/about'
   devise_for :admin_users, ActiveAdmin::Devise.config

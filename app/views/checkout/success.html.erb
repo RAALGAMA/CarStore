@@ -1,5 +1,13 @@
 <h1>
   Yay! we have you money 💰
-
+  <%= debug @session %>
   <%= debug @payment_intent %>
+  <h2>Order Details:</h2>
+<ul>
+  <% @session.list_line_items.each do |item| %>
+    <li><%= item.description %> - <%= number_to_currency(item.amount_total / 100.0) %> x <%= item.quantity %></li>
+  <% end %>
+</ul>
+
+<h2>Total Amount: <%= number_to_currency(@session.amount_total / 100.0) %></h2>
 </h1>

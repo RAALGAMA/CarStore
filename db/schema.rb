@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_191058) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_30_182421) do
   create_table "abouts", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -96,6 +96,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_191058) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id", null: false
+    t.integer "car_id", null: false
+    t.integer "quantity"
+    t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["car_id"], name: "index_order_items_on_car_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.decimal "total_amount"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
   create_table "social_media", force: :cascade do |t|
     t.string "twitter"
     t.string "facebook"
@@ -108,8 +128,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_191058) do
     t.index ["manufacturer_id"], name: "index_social_media_on_manufacturer_id"
   end
 
+  create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "encrypted_password"
+    t.string "address"
+    t.string "province"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "state"
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.string "country"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cars", "manufacturers"
+  add_foreign_key "order_items", "cars"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users"
   add_foreign_key "social_media", "manufacturers"
 end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :initialize_session#, :increment_visit_count
+  #before_action :configure_permitted_parameters, if: :devise_controller?
   #helper_method :visit_count
   helper_method :cart
 

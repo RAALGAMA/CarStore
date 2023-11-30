@@ -1,0 +1,19 @@
+<!-- views/shared/_cart_details.html.erb -->
+<details>
+  <summary>
+    <% if cart.present? %>
+      Cart:
+      <sup><%= cart.size %></sup>
+      <ul class="card">
+    <% end %>
+  </summary>
+  <% cart.each do |c| %>
+    <li class="card-content">
+      <%= c.brand %>-<%= c.model %><%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
+      <input type="number" value="1" min="1" onchange="actualizarSubtotal(this)">
+    </li>
+  <% end %>
+  <%= button_to '💳 Buy Now' %>
+  </ul>
+</details>
+<br>

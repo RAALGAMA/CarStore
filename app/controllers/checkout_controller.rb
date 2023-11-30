@@ -46,6 +46,9 @@ class CheckoutController < ApplicationController
       ]
     )
 
+    # Limpiar el carrito después de la compra
+    session[:shopping_cart] = []
+
     # Inside the create action
     respond_to do |format|
       format.html { redirect_to @session.url, allow_other_host: true }
@@ -54,8 +57,53 @@ class CheckoutController < ApplicationController
   end
 
   def success
+    # Recuperar la sesión de Stripe
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
-    @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+
+    # Verificar si hay un PaymentIntent asociado a la sesión
+    if @session.payment_intent.present?
+      # Recuperar el PaymentIntent asociado a la sesión
+      @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
+
+      # Verificar si hay información de dirección en el objeto customer_details
+      if @session.customer_details.present? && @session.customer_details[:address].present?
+        address_info = @session.customer_details[:address]
+
+        # Crear o actualizar el usuario en tu base de datos con la información de dirección
+        current_user.update(
+          country: address_info[:country],
+          state: address_info[:state],
+          # Otros campos de dirección...
+        )
+      end
+
+      # Extraer la información de los productos comprados
+      if @payment_intent.invoice.present? && @payment_intent.invoice.items.present?
+        invoice_items = @payment_intent.invoice.items.data
+
+        # Crear un nuevo pedido en tu base de datos
+        order = Order.create(
+          user_id: current_user.id,
+          total_amount: @payment_intent.amount / 100, # Convertir el monto de centavos a la moneda base
+          status: 'pending' # Otros estados como 'paid', 'shipped', etc.
+        )
+
+        # Iterar sobre los productos comprados y guardar en la tabla order_items
+        invoice_items.each do |item|
+          product_info = item.description
+          OrderItem.create(
+            order_id: order.id,
+            product_info: product_info,
+            # Otros atributos de order_items...
+          )
+        end
+      else
+        Rails.logger.error("No se encontró información de factura o productos en el PaymentIntent")
+      end
+
+    else
+      Rails.logger.error("No se encontró un PaymentIntent asociado a la sesión de Stripe")
+    end
   end
 
   def cancel
