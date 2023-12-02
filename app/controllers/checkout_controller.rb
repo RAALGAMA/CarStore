@@ -31,6 +31,30 @@ class CheckoutController < ApplicationController
       currency: 'cad'
     )
 
+    # Create product and price for the PST
+    pst_product = Stripe::Product.create(
+      name: 'PST',
+      description: 'Provincial Sales Tax'
+    )
+
+    pst_price = Stripe::Price.create(
+      product: pst_product.id,
+      unit_amount: (@car.price * 0.08 * 100).to_i,
+      currency: 'cad'
+    )
+
+    # Create product and price for the HST
+    hst_product = Stripe::Product.create(
+      name: 'HST',
+      description: 'Harmonized Sales Tax'
+    )
+
+    hst_price = Stripe::Price.create(
+      product: hst_product.id,
+      unit_amount: (@car.price * 0.13 * 100).to_i,
+      currency: 'cad'
+    )
+
     # Create Checkout Session
     @session = Stripe::Checkout::Session.create(
       payment_method_types: ['card'],
@@ -44,6 +68,14 @@ class CheckoutController < ApplicationController
         },
         {
           price: gst_price.id,
+          quantity: quantity
+        },
+        {
+          price: pst_price.id,
+          quantity: quantity
+        },
+        {
+          price: hst_price.id,
           quantity: quantity
         }
       ]
