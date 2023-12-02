@@ -1,0 +1,13 @@
+<%= form_with model: current_user, url: update_address_path, method: :patch do |form| %>
+  <div>
+    <%= form.label :country %>
+    <%= form.text_field :country, required: false %>
+  </div>
+  <div>
+    <%= form.label :state %>
+    <%= form.text_field :state, required: false %>
+  </div>
+  <div>
+    <%= form.submit 'Update Address' %>
+  </div>
+<% end %>

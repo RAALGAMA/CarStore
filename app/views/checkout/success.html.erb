@@ -1,13 +1,24 @@
 <h1>
-  Yay! we have you money 💰
+  Yay! we have your money 💰
   <%= debug @session %>
   <%= debug @payment_intent %>
-  <h2>Order Details:</h2>
-<ul>
-  <% @session.list_line_items.each do |item| %>
-    <li><%= item.description %> - <%= number_to_currency(item.amount_total / 100.0) %> x <%= item.quantity %></li>
-  <% end %>
-</ul>
+  <h2><strong>- Order Details -</strong></h2>
+  <ul>
+    <% @session.list_line_items.each do |item| %>
+      <li><%= item.description %> - <%= number_to_currency(item.amount_total / 100.0) %> x <%= item.quantity %></li>
+    <% end %>
+  </ul>
 
-<h2>Total Amount: <%= number_to_currency(@session.amount_total / 100.0) %></h2>
+  <h2>Total Amount: <%= number_to_currency(@session.amount_total / 100.0) %></h2>
+
+  <br>
+
+  <% if @session.customer_details.present? && @session.customer_details[:address].present? %>
+    <h2><strong>- Shipping Address -</h2></strong>
+    <p>Country: <%= @session.customer_details[:address][:country] %></p>
+    <p>Postal Code: <%= @session.customer_details[:address][:postal_code] %></p>
+  <% else %>
+    <h2>Please provide your shipping address:</h2>
+    <%= render partial: 'shared/address_form' %>
+  <% end %>
 </h1>

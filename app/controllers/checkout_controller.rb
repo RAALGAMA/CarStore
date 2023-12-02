@@ -90,7 +90,7 @@ class CheckoutController < ApplicationController
 
         # Iterar sobre los productos comprados y guardar en la tabla order_items
         invoice_items.each do |item|
-          product_info = item.description
+          product_info = "#{car.model} - #{car.brand}"
           OrderItem.create(
             order_id: order.id,
             product_info: product_info,
