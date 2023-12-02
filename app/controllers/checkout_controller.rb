@@ -4,6 +4,9 @@ class CheckoutController < ApplicationController
 
     return redirect_to root_path if @car.nil?
 
+    # Obtener la cantidad del carrito
+    quantity = params[:quantity].to_i || 1
+
     # Create product and price for the main item (car)
     car_product = Stripe::Product.create(
       name: @car.model,
@@ -37,11 +40,11 @@ class CheckoutController < ApplicationController
       line_items: [
         {
           price: main_price.id,
-          quantity: 1
+          quantity: quantity
         },
         {
           price: gst_price.id,
-          quantity: 1
+          quantity: quantity
         }
       ]
     )
@@ -81,8 +84,8 @@ class CheckoutController < ApplicationController
         # Crear un nuevo pedido en tu base de datos
         order = Order.create(
           user_id: current_user.id,
-          total_amount: @payment_intent.amount / 100, # Convertir el monto de centavos a la moneda base
-          status: 'pending' # Otros estados como 'paid', 'shipped', etc.
+          total_amount: @payment_intent.amount / 100,
+          status: 'pending'
         )
 
         # Iterar sobre los productos comprados y guardar en la tabla order_items
@@ -91,7 +94,8 @@ class CheckoutController < ApplicationController
           OrderItem.create(
             order_id: order.id,
             product_info: product_info,
-            # Otros atributos de order_items...
+            quantity: quantity,
+            price: price
           )
         end
       else

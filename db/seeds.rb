@@ -2,6 +2,8 @@ require "csv"
 
 AdminUser.delete_all
 User.destroy_all
+Order.destroy_all
+OrderItem.destroy_all
 Car.delete_all
 SocialMedia.delete_all
 Manufacturer.delete_all
@@ -84,6 +86,20 @@ user = User.create!(
   reset_password_token: nil,
   reset_password_sent_at: nil,
   remember_created_at: nil
+)
+order = Order.create!(
+  user_id: user.id,
+  total_amount: 100.00, # Reemplazar con el monto real
+  status: 'pending' # Otros estados como 'paid', 'shipped', etc.
+)
+
+# Crear un nuevo order_item asociado al pedido
+car = Car.first # Reemplazar con el carro real
+order_item = OrderItem.create!(
+  order_id: order.id,
+  car_id: car.id,
+  quantity: 1, # Reemplazar con la cantidad real
+  price: car.price # Reemplazar con el precio real
 )
 
 puts "Created #{Manufacturer.count} Manufacturers."
