@@ -4,9 +4,8 @@
     <title>CarsOnRails</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
 
-    <%# stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%#stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
     <script src="https://js.stripe.com/v3"></script>
@@ -21,7 +20,7 @@
           <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
 
           <% if user_signed_in? %>
-            <p>Welcome, <%= current_user.email %>. <%= link_to 'Sign out', destroy_user_session_path, method: :delete %></p>
+            <p>Welcome, <%= current_user.email %>.<%= link_to 'Sign out', destroy_user_session_path, 'data-turbo-method': :delete %></p>
           <% else %>
             <%= link_to 'Sign up', new_user_registration_path %> |
             <%= link_to 'Sign in', new_user_session_path %>
