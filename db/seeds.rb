@@ -1,8 +1,6 @@
 require "csv"
 
 AdminUser.delete_all
-User.destroy_all
-Order.destroy_all
 OrderItem.destroy_all
 Car.delete_all
 SocialMedia.delete_all
@@ -47,7 +45,7 @@ manufacturers.each do |manufacturer_data|
     next unless car_data["manufacturer_id"] == manufacturer_data["id"]
     next unless car_data["brand"].downcase == manufacturer_data["name"].downcase
 
-    break if created_cars_count >= 30 # Salir después de crear 20 carros por manufactura
+    break if created_cars_count >= 30
 
     car = manufacturer.cars.create(
       price: car_data["price"].to_f,
@@ -74,27 +72,9 @@ manufacturers.each do |manufacturer_data|
   end
 end
 
-user = User.create!(
-  first_name: 'Nombre',
-  last_name: 'Apellido',
-  email: 'usuario@example.com',
-  address: '100 123 direccion',
-  province: 'Manitoba',
-  state: 'Manitoba',
-  country: 'Canada',
-  encrypted_password:'password',
-  reset_password_token: nil,
-  reset_password_sent_at: nil,
-  remember_created_at: nil
-)
-order = Order.create!(
-  user_id: user.id,
-  total_amount: 100.00, # Reemplazar con el monto real
-  status: 'pending' # Otros estados como 'paid', 'shipped', etc.
-)
-
 # Crear un nuevo order_item asociado al pedido
 car = Car.first # Reemplazar con el carro real
+order = Order.first
 order_item = OrderItem.create!(
   order_id: order.id,
   car_id: car.id,
