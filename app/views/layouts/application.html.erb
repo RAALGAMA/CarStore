@@ -20,7 +20,7 @@
           <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
 
           <% if user_signed_in? %>
-            <p>Welcome, <%= current_user.email %>.<%= link_to 'Sign out', destroy_user_session_path, 'data-turbo-method': :delete %></p>
+            <p>Welcome, <%= current_user.first_name %> | <%= link_to 'Sign out', destroy_user_session_path, 'data-turbo-method': :delete %></p>
           <% else %>
             <%= link_to 'Sign up', new_user_registration_path %> |
             <%= link_to 'Sign in', new_user_session_path %>

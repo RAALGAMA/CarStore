@@ -6,5 +6,7 @@ class User < ApplicationRecord
 
   has_many :orders
 
+  belongs_to :province, optional: true
+
   validates :first_name, :last_name, :address, :province, :country, presence: true
 end

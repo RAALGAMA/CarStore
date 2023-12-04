@@ -73,14 +73,14 @@ manufacturers.each do |manufacturer_data|
 end
 
 # Crear un nuevo order_item asociado al pedido
-car = Car.first # Reemplazar con el carro real
-order = Order.first
-order_item = OrderItem.create!(
-  order_id: order.id,
-  car_id: car.id,
-  quantity: 1, # Reemplazar con la cantidad real
-  price: car.price # Reemplazar con el precio real
-)
+#car = Car.first # Reemplazar con el carro real
+#order = Order.first
+#order_item = OrderItem.create!(
+#  order_id: order.id,
+#  car_id: car.id,
+#  quantity: 1, # Reemplazar con la cantidad real
+#  price: car.price # Reemplazar con el precio real
+#)
 
 puts "Created #{Manufacturer.count} Manufacturers."
 puts "Created #{Car.count} Cars."

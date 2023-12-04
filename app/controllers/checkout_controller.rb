@@ -7,6 +7,20 @@ class CheckoutController < ApplicationController
     # Obtener la cantidad del carrito
     quantity = params[:quantity].to_i || 1
 
+    # Obtener la provincia del usuario actual
+    user_province = current_user.province
+
+    # Calcular los impuestos según la provincia
+    gst_rate = user_province.gst
+    pst_rate = user_province.pst
+    hst_rate = user_province.hst
+
+    # Calcula el precio del carrito y los impuestos
+    car_price = @car.price
+    gst_amount = car_price * gst_rate
+    pst_amount = car_price * pst_rate
+    hst_amount = car_price * hst_rate
+
     # Create product and price for the main item (car)
     car_product = Stripe::Product.create(
       name: @car.model,
@@ -27,7 +41,7 @@ class CheckoutController < ApplicationController
 
     gst_price = Stripe::Price.create(
       product: gst_product.id,
-      unit_amount: (@car.price * 0.05 * 100).to_i, # Multiplica por 100 para convertir a centavos
+      unit_amount: (gst_amount * 100).to_i,
       currency: 'cad'
     )
 
@@ -39,7 +53,7 @@ class CheckoutController < ApplicationController
 
     pst_price = Stripe::Price.create(
       product: pst_product.id,
-      unit_amount: (@car.price * 0.08 * 100).to_i,
+      unit_amount: (pst_amount * 100).to_i,
       currency: 'cad'
     )
 
@@ -51,7 +65,7 @@ class CheckoutController < ApplicationController
 
     hst_price = Stripe::Price.create(
       product: hst_product.id,
-      unit_amount: (@car.price * 0.13 * 100).to_i,
+      unit_amount: (hst_amount * 100).to_i,
       currency: 'cad'
     )
 
@@ -93,6 +107,7 @@ class CheckoutController < ApplicationController
 
   def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @user_province = current_user.province.name
     if @session.payment_intent.present?
       # Recuperar el PaymentIntent asociado a la sesión
       @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)
@@ -104,7 +119,8 @@ class CheckoutController < ApplicationController
         # Crear o actualizar el usuario en tu base de datos con la información de dirección
         #current_user.update(
         #  country: address_info[:country],
-        #  state: address_info[:state],
+        #  province: address_info[:province],
+        #  product_info: 'hola'
           # Otros campos de dirección...
         #)
       end

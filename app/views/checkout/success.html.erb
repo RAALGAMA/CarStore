@@ -12,10 +12,13 @@
   <h2>Total Amount: <%= number_to_currency(@session.amount_total / 100.0) %></h2>
 
   <br>
+  <h2><strong>- Client Information -</strong></h2>
+  <br>
 
   <% if @session.customer_details.present? && @session.customer_details[:address].present? %>
     <h2><strong>- Shipping Address -</h2></strong>
     <p>Country: <%= @session.customer_details[:address][:country] %></p>
+    <p>Province: <%= @user_province %></p>
     <p>Postal Code: <%= @session.customer_details[:address][:postal_code] %></p>
   <% else %>
     <h2>Please provide your shipping address:</h2>
