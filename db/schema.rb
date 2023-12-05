@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_04_012826) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_04_234751) do
   create_table "abouts", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -153,6 +153,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_04_012826) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "province_id"
+    t.integer "order_id"
+    t.index ["order_id"], name: "index_users_on_order_id"
     t.index ["province_id"], name: "index_users_on_province_id"
   end
 
@@ -163,5 +165,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_04_012826) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "orders", "users"
   add_foreign_key "social_media", "manufacturers"
+  add_foreign_key "users", "orders"
   add_foreign_key "users", "provinces"
 end

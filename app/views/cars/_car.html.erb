@@ -17,10 +17,15 @@
             <%= button_to cart_path(car), method: :delete, class: 'remove-from-cart' do %>
             ➖ Remove From Cart ➖
             <% end %>
-            <%= form_with url: checkout_create_path, remote: true do %>
-              <%= hidden_field_tag(:car_id, car.id) %>
-              <%= button_tag '💳 Buy Now' %>
-            <% end %>
+            <% if user_signed_in? %>
+              <%= form_with url: checkout_create_path, remote: true do %>
+                <%= hidden_field_tag(:car_id, car.id) %>
+                <%= button_tag '💳 Buy Now' %>
+              <% end %>
+            <% else %>
+                <p>Please <%= link_to 'sign in', new_user_session_path %> to make a purchase.</p>
+              <% end %>
+
           <% else %>
             <%= form_with url: cart_index_path, method: :post do %>
               <%= hidden_field_tag(:id, car.id) %>

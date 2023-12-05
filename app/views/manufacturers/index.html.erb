@@ -2,5 +2,5 @@
 
 
   <% @manufacturers.each do |manufacturer| %>
-    <p><%= link_to manufacturer.name, manufacturer %></p>
+    <p><%= link_to "#{manufacturer.name} - #{manufacturer.site}", manufacturer %></p>
   <% end %>

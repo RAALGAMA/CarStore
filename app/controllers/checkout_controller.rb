@@ -10,6 +10,9 @@ class CheckoutController < ApplicationController
     # Obtener la provincia del usuario actual
     user_province = current_user.province
 
+    # Si el usuario no ha iniciado sesión, obtener la dirección de la sesión
+    shipping_address = current_user ? current_user.address : session[:shipping_address]
+
     # Calcular los impuestos según la provincia
     gst_rate = user_province.gst
     pst_rate = user_province.pst
@@ -153,6 +156,11 @@ class CheckoutController < ApplicationController
     else
       Rails.logger.error("No se encontró un PaymentIntent asociado a la sesión de Stripe")
     end
+  end
+
+  def save_address
+    session[:shipping_address] = params[:shipping_address]
+    render 'checkout/_address_form' # o a donde sea que quieras redirigir después de guardar la dirección
   end
 
   def cancel

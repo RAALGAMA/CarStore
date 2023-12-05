@@ -1,13 +1,13 @@
 <%= form_with model: current_user, url: update_address_path, method: :patch do |form| %>
-  <div>
-    <%= form.label :country %>
-    <%= form.text_field :country, required: false %>
+  <div class="field">
+    <%= form.label :address %><br />
+    <%= form.text_field :address %>
+  </div>
+  <div class="field">
+    <%= form.label :province %><br />
+    <%= form.collection_select :province, Province.all, :id, :name, prompt: "Select Province" %>
   </div>
   <div>
-    <%= form.label :state %>
-    <%= form.text_field :state, required: false %>
-  </div>
-  <div>
-    <%= form.submit 'Update Address' %>
+    <%= form.submit 'Provide address' %>
   </div>
 <% end %>

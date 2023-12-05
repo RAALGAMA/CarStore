@@ -9,11 +9,15 @@
           <li class="card-content">
             <%= c.brand %>-<%= c.model %>
             <%= button_to '➖ Remove From Cart ➖', cart_path(c), method: :delete%>
-            <%= form_with url: checkout_create_path, remote: true do |form| %>
-              <%= form.hidden_field :car_id, value: c.id %>
-              <input type="number" name="quantity" value="1" min="1" onchange="actualizarSubtotal(this)">
-              <%= form.button '💳 Buy Now' %>
-            <% end %>
+            <% if user_signed_in? %>
+              <%= form_with url: checkout_create_path, remote: true do |form| %>
+                <%= form.hidden_field :car_id, value: c.id %>
+                <input type="number" name="quantity" value="1" min="1" onchange="actualizarSubtotal(this)">
+                <%= form.button '💳 Buy Now' %>
+              <% end %>
+            <% else %>
+              <p>Please <%= link_to 'sign in', new_user_session_path %> to make a purchase.</p>
+          <% end %>
           </li>
         <% end %>
       </ul>

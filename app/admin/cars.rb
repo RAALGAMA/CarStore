@@ -5,7 +5,7 @@ ActiveAdmin.register Car do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :price, :brand, :model, :year, :title_status, :mileage, :color, :vin, :lot, :state, :condition, :manufacturer_id
+  permit_params :price, :brand, :model, :year, :title_status, :mileage, :color, :vin, :lot, :state, :condition, :manufacturer_id, :image
   #
   # or
   #
