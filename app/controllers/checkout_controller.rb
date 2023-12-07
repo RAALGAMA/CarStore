@@ -111,6 +111,9 @@ class CheckoutController < ApplicationController
   def success
     @session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @user_province = current_user.province.name
+
+    flash[:success] = "Yay! we have your money 💰"
+
     if @session.payment_intent.present?
       # Recuperar el PaymentIntent asociado a la sesión
       @payment_intent = Stripe::PaymentIntent.retrieve(@session.payment_intent)

@@ -1,51 +1,52 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>CarsOnRails</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Uncomment the following line if you are using asset pipeline --->
+  <!-- <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %> -->
+  <%= javascript_importmap_tags %>
 
-    <%#stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-    <script src="https://js.stripe.com/v3"></script>
-  </head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+  <script src="https://js.stripe.com/v3"></script>
 
-   <body>
-    <section class="section">
-      <div class="container">
-        <header>
-          <h1 class="title is-1"><%= link_to 'Cars on Rails', root_path %></h1>
+  <title>CarsOnRails</title>
+</head>
 
-          <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
+<body>
+  <section class="section">
+    <div class="container">
+      <header>
+        <h1 class="title is-1"><%= link_to 'Cars on Rails', root_path %></h1>
 
-          <%= render partial: 'shared/search_form' %>
+        <h2 class="subtitle is-4">Checkout our cars in a <strong>row, row, row</strong>.</h2>
 
-          <% if user_signed_in? %>
-            <p>Welcome, <%= current_user.first_name %> | <%= link_to 'Sign out', destroy_user_session_path, 'data-turbo-method': :delete %></p>
-          <% else %>
-            <%= link_to 'Sign up', new_user_registration_path %> |
-            <%= link_to 'Sign in', new_user_session_path %>
-          <% end %>
+        <%= render partial: 'shared/search_form' %>
 
-             <%= render partial: 'shared/cart_details' %>
-            <br>
-          <h3><%= flash[:notice] %></h3>
-        </header>
+        <% if user_signed_in? %>
+          <p>Welcome, <%= current_user.first_name %> | <%= link_to 'Sign out', destroy_user_session_path, 'data-turbo-method': :delete %></p>
+        <% else %>
+          <%= link_to 'Sign up', new_user_registration_path %> |
+          <%= link_to 'Sign in', new_user_session_path %>
+        <% end %>
 
-        <%= yield %>
-      </div>
-    </section>
+        <%= render partial: 'shared/cart_details' %>
+        <br>
+        <h3><%= flash[:notice] %></h3>
+      </header>
 
-  </body>
+      <%= yield %>
+    </div>
+  </section>
+
   <footer>
-      <div class="container">
-        <h2>
-          <%= render partial: 'shared/cart_details' %>
-        </h2>
-        <h2> <%= link_to 'About Us', about_about_path %> </h2>
-        <h2> <%= link_to 'Cars', cars_path %> </h2>
-        <h2> <%= link_to 'Manufacturers', manufacturers_path %> </h2>
-      </div>
+    <div class="container">
+
+        <%= render partial: 'shared/cart_details' %>
+      <h2><%= link_to 'About Us', about_about_path %></h2>
+      <h2><%= link_to 'Cars', cars_path %></h2>
+      <h2><%= link_to 'Manufacturers', manufacturers_path %></h2>
+    </div>
   </footer>
+</body>
 </html>

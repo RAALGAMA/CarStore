@@ -10,73 +10,74 @@
       </p>
 
       <p>manufacturer: <%= link_to car.manufacturer.name, car.manufacturer %></p>
+    </div>
 
-      <footer class="card-footer">
-        <div class="card-footer-item">
-          <% if cart.include?(car) %>
-            <%= button_to cart_path(car), method: :delete, class: 'remove-from-cart' do %>
+    <footer class="card-footer">
+      <div class="card-footer-item">
+        <% if cart.include?(car) %>
+          <%= button_to cart_path(car), method: :delete, class: 'remove-from-cart' do %>
             ➖ Remove From Cart ➖
-            <% end %>
-            <% if user_signed_in? %>
-              <%= form_with url: checkout_create_path, remote: true do %>
-                <%= hidden_field_tag(:car_id, car.id) %>
-                <%= button_tag '💳 Buy Now' %>
-              <% end %>
-            <% else %>
-                <p>Please <%= link_to 'sign in', new_user_session_path %> to make a purchase.</p>
-              <% end %>
-
-          <% else %>
-            <%= form_with url: cart_index_path, method: :post do %>
-              <%= hidden_field_tag(:id, car.id) %>
-              <%= button_tag '➕ Add to Cart ➕' %>
-            <% end %>
           <% end %>
-        </div>
-      </footer>
 
+          <% if user_signed_in? %>
+            <%= form_with url: checkout_create_path, remote: true do %>
+              <%= hidden_field_tag(:car_id, car.id) %>
+              <%= button_tag '💳 Buy Now' %>
+            <% end %>
+          <% else %>
+            <p>Please <%= link_to 'sign in', new_user_session_path %> to make a purchase.</p>
+          <% end %>
+        <% else %>
+        <form action="<%= cart_index_path %>" method="post">
+          <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
+          <input type="hidden" name="id" id="<%= dom_id(car, :id) %>" value="<%= car.id %>" />
+          <button type="submit">➕ Add to Cart ➕</button>
+        </form>
+        <% end %>
+      </div>
+    </footer>
+
+    <div class="card-content">
       <% if car.image.present? %>
         <div class="card-image">
           <figure class="image">
-            <%= image_tag (car.image), size:"200x200" %>
+            <%= image_tag car.image, size: "200x200" , alt: "Car Image" %>
           </figure>
         </div>
       <% end %>
-
     </div>
-      <footer class="card-footer">
-        <p class="card-footer-item">
-          Price: <br>$<%= car.price / 100.0 %>
-        </p>
-        <p class="card-footer-item">
-          brand: <br><%= car.brand %>
-        </p>
-        <p class="card-footer-item">
-          Year: <br><%= car.year %>
-        </p>
-        <p class="card-footer-item">
-          Title Status: <br><%= car.title_status %>
-        </p>
-              <p class="card-footer-item">
-          Mileage: <br><%= car.mileage %>
-        </p>
-        <p class="card-footer-item">
-          Color: <br><%= car.color %>
-        </p>
-        <p class="card-footer-item">
-          Vehicle Identification Number: <br><%= car.vin %>
-        </p>
-              <p class="card-footer-item">
-          Lot number associated with the car: <br><%= car.lot %>
-        </p>
-              <p class="card-footer-item">
-          state: <br><%= car.state %>
-        </p>
-        <p class="card-footer-item">
-          condition: <br><%= car.condition %>
-        </p>
-      </footer>
+
+    <footer class="card-footer">
+      <p class="card-footer-item">
+        Price: <br>$<%= car.price / 100.0 %>
+      </p>
+      <p class="card-footer-item">
+        brand: <br><%= car.brand %>
+      </p>
+      <p class="card-footer-item">
+        Year: <br><%= car.year %>
+      </p>
+      <p class="card-footer-item">
+        Title Status: <br><%= car.title_status %>
+      </p>
+      <p class="card-footer-item">
+        Mileage: <br><%= car.mileage %>
+      </p>
+      <p class="card-footer-item">
+        Color: <br><%= car.color %>
+      </p>
+      <p class="card-footer-item">
+        Vehicle Identification Number: <br><%= car.vin %>
+      </p>
+      <p class="card-footer-item">
+        Lot number associated with the car: <br><%= car.lot %>
+      </p>
+      <p class="card-footer-item">
+        state: <br><%= car.state %>
+      </p>
+      <p class="card-footer-item">
+        condition: <br><%= car.condition %>
+      </p>
+    </footer>
   </div>
 </div>
-
-

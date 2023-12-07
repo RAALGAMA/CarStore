@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_04_234751) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_05_020543) do
   create_table "abouts", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", null: false
@@ -87,6 +87,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_04_234751) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["manufacturer_id"], name: "index_cars_on_manufacturer_id"
+  end
+
+  create_table "cars_provinces", id: false, force: :cascade do |t|
+    t.integer "car_id", null: false
+    t.integer "province_id", null: false
+    t.index ["car_id", "province_id"], name: "index_cars_provinces_on_car_id_and_province_id"
+    t.index ["province_id", "car_id"], name: "index_cars_provinces_on_province_id_and_car_id"
   end
 
   create_table "manufacturers", force: :cascade do |t|
