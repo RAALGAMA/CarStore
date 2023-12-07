@@ -1,0 +1,8 @@
+<!-- app/views/contacts/show.html.erb -->
+<h1>Contact Information</h1>
+<% @contacts.each do |contact| %>
+  <p>
+    Phone Number: <%= contact.phone_number %><br>
+    Email Address: <%= contact.email %>
+  </p>
+<% end %>

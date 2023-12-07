@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :manufacturers, only: %i[index show]
   resources :cart, only: %i[create destroy]
   resources :abouts
+  get 'contact', to: 'contacts#show', as: 'contact'
   resources :cars, only: [:show, :index] do
     collection do
       get :search
